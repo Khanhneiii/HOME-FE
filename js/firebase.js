@@ -29,6 +29,7 @@ let progressBarTemp = document.querySelector(".circular-progress-temperature");
       let TemperatureProgress
 
 
+let updating = false
 
 let motionText = document.getElementById('motion-text')
 let gasText = document.getElementById('gas-text')
@@ -69,6 +70,7 @@ const alarmRef = ref(RTDB,'Alarms')
 
 
 function updateLightStatus(light) {
+  updating = true;
   get(lightRef)
   .then(snapshot => {
     if (snapshot.exists()) {
@@ -88,7 +90,10 @@ function updateLightStatus(light) {
         lightData[idxData] = false;
       }
       update(lightRef,lightData)
-      .then(console.log('Updated'))
+      .then(() => {
+        console.log('Updated')
+        updating = false
+      })
       .catch(err => console.log(err))
     } else {
       console.log("No data available");
@@ -99,6 +104,7 @@ function updateLightStatus(light) {
 }
 
 function updateFanStatus(fan) {
+  updating = true;
   get(fanRef)
   .then(snapshot => {
     if (snapshot.exists()) {
@@ -115,7 +121,10 @@ function updateFanStatus(fan) {
         fanData[idxData] = false;
       }
       update(fanRef,fanData)
-      .then(console.log('Updated'))
+      .then(() => {
+        console.log('Updated')
+        updating = false
+      })
       .catch(err => console.log(err))
     } else {
       console.log("No data available");
@@ -126,6 +135,12 @@ function updateFanStatus(fan) {
 }
 
 onValue(sensorRef,(snapshoot) => {
+
+    if (updating) {
+      updating = false
+      return
+    }
+
     if (snapshoot.exists())
     {  
       const sensorVal = snapshoot.val()
@@ -141,7 +156,7 @@ onValue(sensorRef,(snapshoot) => {
       progressEndValueTemp = sensorVal['Temperature'];
       speed = 50;
 
-      console.log((progressEndValueTemp))
+      // console.log((progressEndValueTemp))
 
       
       progressBarHumid = document.querySelector(".circular-progress-humidity");
@@ -162,7 +177,7 @@ onValue(sensorRef,(snapshoot) => {
             else {
               progressValueTemp--
             }
-            console.log(progressValueTemp)
+            // console.log(progressValueTemp)
             valueContainerTemp.textContent = `${progressValueTemp}`;
             progressBarTemp.style.background = `conic-gradient(
                 #4d5bf9 ${progressValueTemp * 3.6}deg,
@@ -182,7 +197,7 @@ onValue(sensorRef,(snapshoot) => {
             else {
               progressValueHumid--
             }
-            console.log(progressValueHumid)
+            // console.log(progressValueHumid)
             valueContainerHumid.textContent = `${progressValueHumid}`;
             progressBarHumid.style.background = `conic-gradient(
                 #4d5bf9 ${progressValueHumid * 3.6}deg,
@@ -225,6 +240,10 @@ onValue(alarmRef,(snapshoot) => {
 
 
 onValue(lightRef,(snapshoot) => {
+  if (updating) {
+    updating = false
+    return
+  }
     if (snapshoot.exists()) {
         const lightVal = snapshoot.val()
         console.log(lightVal)
@@ -237,6 +256,10 @@ onValue(lightRef,(snapshoot) => {
 )
 
 onValue(fanRef,(snapshoot) => {
+  if (updating) {
+    updating = false
+    return
+  }
   if (snapshoot.exists()) {
       const fanVal = snapshoot.val()
       console.log(fanVal)
