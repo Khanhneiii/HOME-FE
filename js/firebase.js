@@ -240,18 +240,8 @@ onValue(fanRef,(snapshoot) => {
   if (snapshoot.exists()) {
       const fanVal = snapshoot.val()
       console.log(fanVal)
-
-      if (fanVal.BedRoom) {
         bedFan.checked = true;
-      }
-
-      // if (fanVal.LivingRoom) {
-      //   living.checked = true;
-      // }
-
-      if (fanVal.Kitchen) {
         kitchenFan.checked = true;
-      }
 
   }
 })
