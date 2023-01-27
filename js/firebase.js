@@ -73,7 +73,7 @@ function updateLightStatus(light) {
   .then(snapshot => {
     if (snapshot.exists()) {
       let lightData = snapshot.val();
-      console.log(lightData)
+      // console.log(lightData)
       let idxData = 'Kitchen'
       if (livingLight === light) {
         idxData = 'LivingRoom'
@@ -103,7 +103,7 @@ function updateFanStatus(fan) {
   .then(snapshot => {
     if (snapshot.exists()) {
       let fanData = snapshot.val();
-      console.log(fanData)
+      // console.log(fanData)
       let idxData = 'Kitchen'
       if (bedFan === fan) {
         idxData = 'BedRoom'
