@@ -228,21 +228,13 @@ onValue(lightRef,(snapshoot) => {
     if (snapshoot.exists()) {
         const lightVal = snapshoot.val()
         console.log(lightVal)
-
-        if (lightVal.BedRoom) {
-          bedLight.checked = true;
-        }
-
-        if (lightVal.LivingRoom) {
-          livingLight.checked = true;
-        }
-
-        if (lightVal.Kitchen) {
-          kitchenLight.checked = true;
+          bedLight.checked = lightVal.BedRoom;
+          livingLight.checked = lightVal.LivingRoom;
+          kitchenLight.checked = lightVal.Kitchenrue;
         }
 
     }
-})
+)
 
 onValue(fanRef,(snapshoot) => {
   if (snapshoot.exists()) {
