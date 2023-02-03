@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 
 import { getDatabase, ref, onValue,get, push, update, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
+import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
 let livingLight = document.getElementById('living-room-light')
 let bedLight = document.getElementById('bed-room-light')
 let kitchenLight = document.getElementById('kitchen-light')
@@ -51,10 +53,19 @@ let gasText = document.getElementById('gas-text')
 
   const RTDB = getDatabase(app)
 
+  const FSDB = getFirestore(app)
+
+  const querySnapshot = await getDocs(collection(FSDB, "home"));
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+  });
+
 const lightRef = ref(RTDB,'Lights')
 const fanRef = ref(RTDB,'Fans')
 const sensorRef = ref(RTDB,'Sensor')
 const alarmRef = ref(RTDB,'Alarms')
+
+
 
 // get(lightRef)
 // .then(snapshot => {

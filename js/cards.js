@@ -25,6 +25,8 @@ const dbRef = ref(RTDB)
 
 let Table = document.getElementById('body')
 
+let tableDiv = document.querySelector('.table')
+
 let bodyDiv = document.getElementById('body-div')
 
 function removeAllChildNodes(parent) {
@@ -108,10 +110,16 @@ onValue(cardRef,(snapshoot) => {
 
         // let quantity = obj['quantity']
 
-        obj.id.forEach(element => {
-            // console.log(element)
-            addItemtoTable(element)
-        });
+        if (obj.quantity != 0) {
+          obj.id.forEach(element => {
+              // console.log(element)
+              addItemtoTable(element)
+          });
+        }
+        else {
+          console.log('quantity: ',obj.quantity)
+          tableDiv.style.appearance = 'none'
+        }
     }
 })
 
