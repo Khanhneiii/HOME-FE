@@ -45,15 +45,12 @@ function deleteID() {
 
         //   let quantity = Number(cards['quantity'])
             
+          console.log(cards.id)
 
-
-          cards.id = cards.id.filter(id => {
-            if (id != Number(this.id)) {
-                console.log('Deleted')
-            }
-            return id != Number(this.id)
+          cards.id = cards.id.filter(card => {
+            return card.id != Number(this.id)
           })
-          cards.quantity--
+          // cards.quantity--
           console.log(cards)
           update(dbRef,{
             cards
@@ -68,6 +65,39 @@ function deleteID() {
     // window.location.reload()
 }
 
+function editID() {
+  // console.log(typeof(this.id))
+  // get(cardRef).then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //     //   console.log(typeof(snapshot.val()))
+
+  //       let cards = snapshot.val().id
+
+  //     //   let quantity = Number(cards['quantity'])
+          
+
+
+  //       cards.id = cards.id.filter(id => {
+  //         if (id != Number(this.id)) {
+  //             console.log('Edited')
+  //         }
+  //         return id != Number(this.id)
+  //       })
+  //       cards.quantity--
+  //       console.log(cards)
+  //       update(dbRef,{
+  //         cards
+  //       })
+
+  //     } else {
+  //       console.log("No data available");
+  //     }
+  //   }).catch((error) => {
+  //     console.error(error);
+  //   });
+  // // window.location.reload()
+}
+
 function createDeleteButton(id) {
     let deleteBTN = document.createElement('button')
     deleteBTN.setAttribute('class','delete-btn')
@@ -78,22 +108,38 @@ function createDeleteButton(id) {
     return deleteBTN
 }
 
-function addItemtoTable(uid) {
-    let trow = document.createElement('tr')
-    // let td1 = document.createElement('td')
-    let tdID = document.createElement('td')
-    let tdButton = document.createElement('td')
-    let button = createDeleteButton(uid)
-    tdButton.appendChild(button)
 
+function createEditButton(id) {
+  let editBTN = document.createElement('button')
+  editBTN.setAttribute('class','edit-btn')
+  editBTN.setAttribute('id',id)
+  editBTN.textContent = 'Edit'
+  editBTN.addEventListener('click',editID)
+
+  return editBTN
+}
+
+function addItemtoTable(obj) {
+    let trow = document.createElement('tr')
+    let tdName = document.createElement('td')
+    let tdID = document.createElement('td')
+    let tdButton = document.createElement('td') 
+    let deleteButton = createDeleteButton(obj.id)
+    let editButton = createEditButton(obj.id)
+    tdButton.appendChild(deleteButton)
+    tdButton.appendChild(editButton)
     tdButton.setAttribute('class','TableButton')
 
     tdID.setAttribute('class','UID')
+    tdName.setAttribute('class','Name')
+    // tdID.setAttribute('class','Name')
 
     // td1.innerHTML = nums
-    tdID.innerHTML = uid
+    tdName.textContent = obj.name
+    console.log("Name: ",obj.name)
+    tdID.textContent = obj.id
 
-    // trow.appendChild(td1)
+    trow.appendChild(tdName)
     trow.appendChild(tdID)
     trow.appendChild(tdButton)
     // console.log(trow)
@@ -103,23 +149,28 @@ function addItemtoTable(uid) {
 
 onValue(cardRef,(snapshoot) => {
     if (snapshoot.exists()) {
-        const obj = snapshoot.val()
-        console.log(obj)
+        const obj_arr = snapshoot.val()
+        console.log(obj_arr)
 
         removeAllChildNodes(Table)
 
         // let quantity = obj['quantity']
 
-        if (obj.quantity != 0) {
-          obj.id.forEach(element => {
-              // console.log(element)
-              addItemtoTable(element)
-          });
-        }
-        else {
-          console.log('quantity: ',obj.quantity)
-          tableDiv.style.appearance = 'none'
-        }
+        obj_arr.id.forEach(obj => {
+          console.log(obj)
+          addItemtoTable(obj)
+        })
+
+        // if (obj.quantity != 0) {
+        //   obj.id.forEach(element => {
+        //       // console.log(element)
+        //       addItemtoTable(element)
+        //   });
+        // }
+        // else {
+        //   console.log('quantity: ',obj.quantity)
+        //   tableDiv.style.appearance = 'none'
+        // }
     }
 })
 

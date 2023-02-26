@@ -110,10 +110,11 @@ body {
     border-radius: 5px;
     background-color: antiquewhite;
     top: 100px;
-    left: 400px;
+    left: 300px;
     padding: 0px;
     align-items: center;
-
+    width: 1000px;
+    
     /* appearance: none; */
 }
 
@@ -126,6 +127,8 @@ body {
     align-items: center;
     text-align: center;
     box-shadow: 20px 20px 40px rgba(60, 60, 150, 0.25);
+    border: 1px solid rgb(241, 232, 232);
+    border-collapse: collapse;
     /* margin: auto; */
 
     /* appearance: none; */
@@ -135,6 +138,8 @@ body {
 tr, th, tbody, td {
     /* border: 1px solid black; */
     padding: 3px 5px;
+    border: 1px solid rgb(255, 248, 248);
+    border-collapse: collapse;
 
     /* appearance: none; */
 }
@@ -150,7 +155,6 @@ thead {
 
 .TableButton {
     border: 0px;
-    width: 200px;
 }
 
 .delete-btn {
@@ -162,8 +166,31 @@ thead {
     background-color: rgb(231, 10, 99);
     cursor: pointer;
     /* padding: auto; */
+    margin: 0px;
 }
 
+.edit-btn {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: rgb(231, 10, 99);
+    cursor: pointer;
+    margin-left: 10px;
+    /* padding: auto; */
+    margin: 0px;
+    margin-left: 3px;
+}
+
+
+
 .UID {
-    width: 500px;
+    width: 60%;
+}
+
+
+
+.Name {
+    width: 20%;
 }
