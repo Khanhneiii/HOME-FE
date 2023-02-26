@@ -62,7 +62,7 @@ if (docSnap.exists()) {
 }
 
 
-const labels = ['Jan','Feb','Mar','April','May','June']
+const labels = ['19:00','19:05','19:10','19:12','19:13','19:18']
 
 // const data = {
 //   labels: labels,
