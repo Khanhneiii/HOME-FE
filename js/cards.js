@@ -125,9 +125,9 @@ function addItemtoTable(obj) {
     let tdID = document.createElement('td')
     let tdButton = document.createElement('td') 
     let deleteButton = createDeleteButton(obj.id)
-    let editButton = createEditButton(obj.id)
+    // let editButton = createEditButton(obj.id)
     tdButton.appendChild(deleteButton)
-    tdButton.appendChild(editButton)
+    // tdButton.appendChild(editButton)
     tdButton.setAttribute('class','TableButton')
 
     tdID.setAttribute('class','UID')
